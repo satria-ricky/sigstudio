@@ -74,6 +74,15 @@
 
                 <form action="<?php echo base_url('pengelola/C_data_peralatan/Tambah_alat'); ?>" method="POST">
 
+                <div class="mb-3">
+                        <label for="basic-url">Nama Ruangan</label>
+                        <select class="form-control mb-3 <?= (form_error('jenis_at')) ? 'is-invalid' : ''; ?>" name="nama_ruangan" id="">
+                            <option value="0">Pilih</option>
+                            <option value="Pukul">Ruangan 1 </option>
+                            <option value="Petik">Ruangan 2 </option>
+                        </select>
+                        <?= form_error('jenis_at', '<small class="text-danger">', '</small> '); ?>
+                    </div>
                     <div class="mb-3">
                         <label for="basic-url">Nama Alat</label>
                         <div class="input-group mb-3">

@@ -8,8 +8,6 @@
         </div>
         <div class="col-5 ">
             <a href="#" class="float-right btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#jadwal"><i class="fas fa-plus fa-sm text-white-50"></i> Tambah Data Jadwal Boking</a>
-
-            <a href="#" class=" float-right mr-2 btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#ruangan"><i class="fas fa-plus fa-sm text-white-50"></i> Tambah Ruangan</a>
         </div>
 
 

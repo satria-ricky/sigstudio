@@ -50,6 +50,12 @@
                     <span>Jadwal Boking</span></a>
             </li>
 
+            <li class="nav-item <?= ($menu == 3) ? 'active' : ''; ?>">
+                <a class="nav-link " href="<?php echo base_url('pengelola/C_ruangan') ?>">
+                    <i class="fas fa-fw fa-list"></i>
+                    <span>Data Ruangan</span></a>
+            </li>
+
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 

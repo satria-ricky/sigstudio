@@ -1,0 +1,7 @@
+PENGELOLA
+	1. dashboard -> data studio yg dikelola
+	2. data peralatan -> tambah data -> insert data ruangan
+				hapus data
+				edit data 
+				detail data
+	3. 

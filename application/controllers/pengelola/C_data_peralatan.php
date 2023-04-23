@@ -6,7 +6,7 @@ class C_data_peralatan extends CI_Controller
     public function index()
     {
         $id_s = $this->session->userdata('id_studio');
-        $data['alat'] = $this->db->query("SELECT * FROM tb_alat at WHERE at.id_studio=$id_s")->result();
+        $data['alat'] = $this->db->query("SELECT * FROM tb_alat at WHERE at.alat_idstudio=$id_s")->result();
         $data['title'] = 'Data Peralatan - Pengelola';
         $data['menu'] = '1';
         $this->load->view('pengelola/layout/header', $data);
