@@ -21,6 +21,23 @@ class Welcome extends CI_Controller
 	 */
 	public function index()
 	{
-		$this->load->view('masyarakat/beranda');
+		$v_data['data_studio'] = $this->Mread->getAllStudio();
+		// var_dump($v_data);
+		// die();
+		// $break = 3;
+		// for ($i = 0; $i < count($v_data['data_studio']); $i++) {
+			
+			
+		// 	if ($i != $break) {
+		// 		echo $i['data_studio']->nama_studio. "\t";
+		// 	} else {
+		// 		echo "<hr>";
+		// 		echo $i['data_studio']->nama_studio . "\t";
+		// 		$break = $break + 3;
+				
+		// 	}
+			
+		// }
+		$this->load->view('masyarakat/beranda', $v_data);
 	}
 }

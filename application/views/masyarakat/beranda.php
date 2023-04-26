@@ -114,7 +114,48 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Landing Page</h1>
+                    <center>
+                        <h1 class="h3 mb-4 text-gray-800">Peta Lokasi</h1>
+                    </center>
+
+                    <div class="card">
+
+                        <div id="mapid" style="height: 450px; background:cadetblue;"></div>
+
+
+                    </div>
+
+
+                    <hr>
+
+                    <div class="row">
+                        <?php $counter = 1; ?>
+                        <?php foreach ($data_studio as $st) : ?>
+                            <div class="col-md-4">
+
+                                <div class="card mb-4">
+                                    <img class="card-img-top" src="<?= base_url('assets/foto_studio/'); ?>FIMG-Studio-Musik.jpg" alt="Card image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><?= $st->nama_studio?></h5>
+                                        <p class="card-text"><?= $st->alamat_studio?>.</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
+                                     <a href="<?= base_url(); ?>c_login"><?= $st->id_studio?></a>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <?php if ($counter % 3 == 0) : ?>
+                            </div><div class="row" >
+                    <?php endif; ?>
+                    <?php $counter++; ?>
+                <?php endforeach; ?>
+                    </div>
+
+
+
+
 
                 </div>
                 <!-- /.container-fluid -->
