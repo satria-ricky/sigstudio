@@ -139,29 +139,52 @@
                                         </div>
                                     </div>
                                     <hr>
-                                    <div class="row no-gutters">
-
-
-                                        <div class="col-4">
-                                            <div class="h5  font-weight-bold text-gray-800">Jumlah Ruangan</div>
-                                            <div class="h5  font-weight-bold text-gray-800">Harga Sewa</div>
-                                            <div class="h5  font-weight-bold text-gray-800">Alamat</div>
-
-                                            <div class="h5  font-weight-bold text-gray-800">Tahun Berdiri</div>
-                                        </div>
-                                        <div class="col-8">
-                                            <div class="h5 text-gray-800">: <?= $data_total_ruangan ?> Ruangan</div>
-                                            <div class="h5   text-gray-800">: <?= $data_studio['harga_sewa'] ?></div>
-                                            <div class="h5   text-gray-800">: <?= $data_studio['alamat_studio'] ?> </div>
-                                            <div class="h5  text-gray-800">: <?= $data_studio['tahun_didirikan'] ?> </div>
-
-
+                                    <div class="row">
+                                            <div class="col-5">
+                                                <div class="h5  font-weight-bold text-gray-800">Jumlah Ruangan</div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="h5 text-gray-800">: <?= $data_total_ruangan ?> Ruangan</div>
+                                            </div>
                                         </div>
 
-                                    </div>
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <div class="h5  font-weight-bold text-gray-800">Harga Sewa</div>
+                                            </div>
+                                            <div class="col-7">
+                                                
+                                                <div class="h5   text-gray-800">: <?= $data_studio['harga_sewa'] ?></div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <div class="h5  font-weight-bold text-gray-800">Alamat</div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="h5   text-gray-800">: <?= $data_studio['alamat_studio'] ?> </div>
+
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <div class="h5  font-weight-bold text-gray-800">Tahun Berdiri</div>
+                                            </div>
+
+                                            <div class="col-7">
+                                                <div class="h5  text-gray-800">: <?= $data_studio['tahun_didirikan'] ?> </div>
+                                            </div>
+                                        </div>
                                     <div class="mt-3 float-right">
                                         <a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-sm btn-primary"><i class="fas fa-calendar fa-sm text-white-50"></i> Lihat Jadwal</a> <br>
-                                        <a href="#" class="btn btn-sm btn-success mt-2"><i class="fas fa-map fa-sm text-white-50"></i> Lihat Rute</a>
+                                        <a href="#" class="btn btn-sm btn-success mt-2" id="click_rute"><i class="fas fa-map fa-sm text-white-50"></i> Lihat Rute</a>
+
+                                        <input type="hidden" id="latitude" value="<?= $data_studio['latitude'] ?>">
+                                        <input type="hidden" id="longitude" value="<?= $data_studio['longitude'] ?>">
 
                                     </div>
                                 </div>
@@ -290,17 +313,17 @@
 
                             <?php foreach ($data_booking_studio as $bok) { ?>
                                 <tbody>
-                                <tr>
-                                    <td><?= $bok->nama_ruangan ?></td>
-                                    <td><?= $bok->nama_boking ?></td>
-                                    <td><?= $bok->tanggal_boking ?></td>
-                                    <td> mulai : <?= $bok->jam_mulai ?>, <br> selesai :<?= $bok->jam_berakhir ?></td>
-                                    <td><?= $bok->harga ?></td>
-                                </tr>
-                            </tbody>
+                                    <tr>
+                                        <td><?= $bok->nama_ruangan ?></td>
+                                        <td><?= $bok->nama_boking ?></td>
+                                        <td><?= $bok->tanggal_boking ?></td>
+                                        <td> mulai : <?= $bok->jam_mulai ?>, <br> selesai :<?= $bok->jam_berakhir ?></td>
+                                        <td><?= $bok->harga ?></td>
+                                    </tr>
+                                </tbody>
                             <?php  } ?>
 
-                            
+
                         </table>
                     </div>
 
@@ -326,105 +349,32 @@
     <script src="<?php echo base_url('assets/dashboardTemp/'); ?>vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="<?php echo base_url('assets/dashboardTemp/'); ?>vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-<script>
-    $(document).ready(function() {
-  $('#dataTable').DataTable();
-});
-</script>
-    <!-- <script>
-        getData_peta();
-
-        function getData_peta() {
-            $.ajax({
-                url: "<?php echo base_url(); ?>c_dashboard/load_data_to_tabel",
-                dataType: "json",
-                success: function(data) {
-                    // console.log(data);
-
-                    //load data
-
-                    var datasearch = [];
-                    for (var i = 0; i < data.length; i++) {
-                        if (data[i].latitude != null || data[i].longitude != null) {
-                            datasearch.push({
-                                "titik_koordinat": [data[i].latitude, data[i].longitude],
-                                "nama": data[i].bt_nama
-                            });
-                        }
-                    }
-
-                    // console.log(datasearch);
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable();
+        });
+    </script>
+    <script>
+        navigator.geolocation.getCurrentPosition(function(location) {
+            console.log(location.coords.latitude, location.coords.longitude);
 
 
-                    navigator.geolocation.getCurrentPosition(function(location) {
-                        var latlng = new L.LatLng(location.coords.latitude, location.coords.longitude);
+            $(document).on("click", "#click_rute", function(e) {
+                e.preventDefault();
 
 
-                        console.log(location.coords.latitude, location.coords.longitude);
+                var lat = $("#latitude").val();
+                var long = $("#longitude").val();
+                window.open("https://www.google.com/maps/dir/?api=1&origin=" + location.coords.latitude + "," + location.coords.longitude + "&destination=" + long + "," + lat, '_blank');
 
-                        document.getElementById('mapid').innerHTML = "<div id='data_peta' style='height: 450px;'></div>";
-
-
-                        var mymap = new L.Map('data_peta', {
-                            zoom: 14,
-                            center: new L.latLng([-8.58280355011038, 116.13464826731037])
-                        });
-
-                        mymap.addLayer(new L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-                            maxZoom: 18,
-                            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-                                '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-                                'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                            id: 'mapbox/streets-v11',
-                        }));
-
-
-                        var markersLayer = new L.LayerGroup();
-                        mymap.addLayer(markersLayer);
-
-                        mymap.addControl(new L.Control.Search({
-                            position: 'topleft',
-                            layer: markersLayer,
-                            initial: false,
-                            collapsed: true,
-                            zoom: 17
-                        }));
-
-
-                        var mylocation = L.marker(latlng).addTo(mymap).bindPopup('Youre location!');
-
-
-                        for (var i = 0; i < data.length; i++) {
-                            if (data[i].latitude != null || data[i].longitude != null) {
-
-                                var icon_map = L.icon({
-                                    iconUrl: '<?= base_url('assets/foto/bt/mapicon/') ?>' + data[i].stts_mapicon,
-                                    iconSize: [40, 40], // size of the icon
-                                });
-
-
-                                var nama_bt = data[i].bt_nama;
-                                var titik_koordinat = [data[i].latitude, data[i].longitude];
-
-                                marker = new L.Marker(new L.latLng(titik_koordinat), {
-                                    title: nama_bt,
-                                    icon: icon_map
-                                });
-
-                                marker.bindPopup("<b>" + data[i].bt_nama + "</b><br>" + data[i].bt_alamat + "<br> <div class='row ml-1'><h6><a href='" + data[i].bt_id + "' class='btn btn-sm btn-outline-info' data-toggle='modal' data-target='#modal_detail" + data[i].bt_id + "'>Detail</a></h6><h6><a href='https://www.google.com/maps/dir/?api=1&origin=" + location.coords.latitude + "," + location.coords.longitude + "&destination=" + data[i].latitude + "," + data[i].longitude + "' class='btn btn-sm btn-outline-success' target='_blank'>Rute</a></h6></div>");
-
-                                markersLayer.addLayer(marker);
-
-                            }
-                        }
-
-                    });
-                }
 
             });
 
-        }
-    </script> -->
+
+
+
+        });
+    </script>
 </body>
 
 </html>
