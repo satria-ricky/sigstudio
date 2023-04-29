@@ -18,6 +18,8 @@
     <!-- Custom styles for this template-->
     <link href="<?php echo base_url('assets/dashboardTemp/'); ?>css/sb-admin-2.min.css" rel="stylesheet">
 
+    <link href="<?php echo base_url('assets/dashboardTemp/'); ?>vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
 </head>
 
 <body id="page-top">
@@ -113,50 +115,106 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <center>
-                        <h1 class="h3 mb-4 text-gray-800">Peta Lokasi</h1>
-                    </center>
-
-                    <div class="card">
-
-                        <div id="mapid" style="height: 450px; background:cadetblue;"></div>
-
-
-                    </div>
-
-
-                    <hr>
-
+                    <!-- DATA DETAIL STUDIO -->
                     <div class="row">
-                        <?php $counter = 1; ?>
-                        <?php foreach ($data_studio as $st) : ?>
-                            <div class="col-md-4">
+                        <div class="col-xl mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
 
-                                <div class="card mb-4">
-                                    <img class="card-img-top" src="<?= base_url('assets/foto_studio/'); ?>FIMG-Studio-Musik.jpg" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h5 class="card-title"><?= $st->nama_studio ?></h5>
-                                        <p class="card-text"><?= $st->alamat_studio ?>.</p>
+                                    <div class="row">
+
+                                        <h1 class="ml-2">
+                                            <center>
+                                                <u>
+                                                    <?= $data_studio['nama_studio'] ?>
+                                                </u>
+                                            </center>
+                                        </h1>
+
                                     </div>
-                                    <div class="card-footer">
-                                        <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
-                                        <a href="<?= base_url('Studio/detailStudio/') . $st->id_studio ?>">Lihat selengkapnya ... </a>
+
+                                    <div class="row">
+                                        <div class="card">
+                                            <img src="<?= base_url('assets/foto_studio/') . $data_studio['foto_studio']; ?>" class="img-fluid ml-2" alt="foto studio">
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row no-gutters">
+
+
+                                        <div class="col-4">
+                                            <div class="h5  font-weight-bold text-gray-800">Jumlah Ruangan</div>
+                                            <div class="h5  font-weight-bold text-gray-800">Harga Sewa</div>
+                                            <div class="h5  font-weight-bold text-gray-800">Alamat</div>
+
+                                            <div class="h5  font-weight-bold text-gray-800">Tahun Berdiri</div>
+                                        </div>
+                                        <div class="col-8">
+                                            <div class="h5 text-gray-800">: <?= $data_total_ruangan ?> Ruangan</div>
+                                            <div class="h5   text-gray-800">: <?= $data_studio['harga_sewa'] ?></div>
+                                            <div class="h5   text-gray-800">: <?= $data_studio['alamat_studio'] ?> </div>
+                                            <div class="h5  text-gray-800">: <?= $data_studio['tahun_didirikan'] ?> </div>
+
+
+                                        </div>
+
+                                    </div>
+                                    <div class="mt-3 float-right">
+                                        <a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-sm btn-primary"><i class="fas fa-calendar fa-sm text-white-50"></i> Lihat Jadwal</a> <br>
+                                        <a href="#" class="btn btn-sm btn-success mt-2"><i class="fas fa-map fa-sm text-white-50"></i> Lihat Rute</a>
+
                                     </div>
                                 </div>
 
                             </div>
-                            <?php if ($counter % 3 == 0) : ?>
+                        </div>
                     </div>
 
+
+
+                    <!-- DATA PERALATAN -->
                     <div class="row">
-                    <?php endif; ?>
-                    <?php $counter++; ?>
-                <?php endforeach; ?>
+                        <div class="col-xl mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+
+                                    <div class="row">
+                                        <h1>
+                                            Peralatan
+                                        </h1>
+
+                                    </div>
+                                    <hr>
+
+                                    <div class="row">
+                                        <?php $counter = 1; ?>
+                                        <?php foreach ($data_peralatan_studio as $st_alat) : ?>
+                                            <div class="col-md-3">
+
+                                                <div class="card mb-4">
+                                                    <img class="card-img-top" src="<?= base_url('assets/foto_alat/') . $st_alat->foto_alat ?>" alt="Card image cap">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title"><?= $st_alat->nama_alat ?></h5>
+                                                        <p class="card-text"><?= $st_alat->jenis_alat ?>.</p>
+                                                        <p class="card-text"><?= $st_alat->kondisi_alat ?>.</p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <?php if ($counter % 4 == 0) : ?>
+                                    </div>
+
+                                    <div class="row">
+                                    <?php endif; ?>
+                                    <?php $counter++; ?>
+                                <?php endforeach; ?>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
-
-
-
 
 
                 </div>
@@ -205,6 +263,56 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Jadwal Booking</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Ruangan</th>
+                                    <th>Nama Booking</th>
+                                    <th>Tanggal</th>
+                                    <th>Waktu</th>
+                                    <th>harga</th>
+                                </tr>
+                            </thead>
+
+                            <?php foreach ($data_booking_studio as $bok) { ?>
+                                <tbody>
+                                <tr>
+                                    <td><?= $bok->nama_ruangan ?></td>
+                                    <td><?= $bok->nama_boking ?></td>
+                                    <td><?= $bok->tanggal_boking ?></td>
+                                    <td> mulai : <?= $bok->jam_mulai ?>, <br> selesai :<?= $bok->jam_berakhir ?></td>
+                                    <td><?= $bok->harga ?></td>
+                                </tr>
+                            </tbody>
+                            <?php  } ?>
+
+                            
+                        </table>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Bootstrap core JavaScript-->
     <script src="<?php echo base_url('assets/dashboardTemp/'); ?>vendor/jquery/jquery.min.js"></script>
     <script src="<?php echo base_url('assets/dashboardTemp/'); ?>vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -215,7 +323,14 @@
     <!-- Custom scripts for all pages-->
     <script src="<?php echo base_url('assets/dashboardTemp/'); ?>js/sb-admin-2.min.js"></script>
 
+    <script src="<?php echo base_url('assets/dashboardTemp/'); ?>vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="<?php echo base_url('assets/dashboardTemp/'); ?>vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
+<script>
+    $(document).ready(function() {
+  $('#dataTable').DataTable();
+});
+</script>
     <!-- <script>
         getData_peta();
 

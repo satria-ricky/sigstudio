@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Welcome extends CI_Controller
+class Studio extends CI_Controller
 {
 
 	/**
@@ -19,10 +19,16 @@ class Welcome extends CI_Controller
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/userguide3/general/urls.html
 	 */
-	public function index()
+
+	public function detailStudio($v_id)
 	{
-		$v_data['data_studio'] = $this->Mread->getAllStudio();
-		$this->load->view('masyarakat/beranda', $v_data);
+		$v_data['data_studio'] = $this->Mread->getAllStudioById($v_id);
+		$v_data['data_total_ruangan'] = $this->Mread->getTotalRuanganByStudio($v_id);
+		$v_data['data_peralatan_studio'] = $this->Mread->getAllPeralatanStudioById($v_id);
+		$v_data['data_booking_studio'] = $this->Mread->getAllBokingStudioById($v_id);
+		// var_dump($v_data['data_studio']);
+		// die();
+		$this->load->view('masyarakat/detailStudio', $v_data);
 	}
 
 }
