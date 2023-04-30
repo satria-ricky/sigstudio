@@ -25,4 +25,9 @@ class Welcome extends CI_Controller
 		$this->load->view('masyarakat/beranda', $v_data);
 	}
 
+	public function studioToPeta(){
+		$data = $this->Mread->getAllStudio();
+		echo json_encode($data);	
+	}
+
 }

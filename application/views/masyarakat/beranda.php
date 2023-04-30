@@ -18,6 +18,18 @@
     <!-- Custom styles for this template-->
     <link href="<?php echo base_url('assets/dashboardTemp/'); ?>css/sb-admin-2.min.css" rel="stylesheet">
 
+
+ <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+     integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+     crossorigin=""/>
+ <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+     integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+     crossorigin=""></script>   
+  <link rel="stylesheet" href="<?= base_url() ?>leaflet-locatecontrol/dist/L.Control.Locate.min.css" />
+<script src="<?= base_url() ?>leaflet-locatecontrol/src/L.Control.Locate.js"></script>
+<link rel="stylesheet" href="<?= base_url() ?>leaflet-search/src/leaflet-search.css" />
+<script src="<?= base_url() ?>leaflet-search/src/leaflet-search.js"></script>
+
 </head>
 
 <body id="page-top">
@@ -34,18 +46,17 @@
 
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                    <div class="navbar-brand ml-3"> <b> SIG Studio Musik</b></div>
+                    <div class="navbar-brand ml-3">  <b><a href="<?= base_url(); ?>">SIG Studio Musik</a> </b></div>
 
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                        <li class="nav-item dropdown no-arrow d-sm-none">
+                        <!-- <li class="nav-item dropdown no-arrow d-sm-none">
                             <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-search fa-fw"></i>
                             </a>
-                            <!-- Dropdown - Messages -->
                             <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
                                 <form class="form-inline mr-auto w-100 navbar-search">
                                     <div class="input-group">
@@ -58,7 +69,7 @@
                                     </div>
                                 </form>
                             </div>
-                        </li>
+                        </li> -->
 
                         <!-- Nav Item - Alerts -->
                         <li class="nav-item  mx-1 pt-2">
@@ -120,7 +131,7 @@
 
                     <div class="card">
 
-                        <div id="mapid" style="height: 450px; background:cadetblue;"></div>
+                        <div id="mapid" style="height: 450px;"></div>
 
 
                     </div>
@@ -216,12 +227,12 @@
     <script src="<?php echo base_url('assets/dashboardTemp/'); ?>js/sb-admin-2.min.js"></script>
 
 
-    <!-- <script>
+    <script>
         getData_peta();
 
         function getData_peta() {
             $.ajax({
-                url: "<?php echo base_url(); ?>c_dashboard/load_data_to_tabel",
+                url: "<?php echo base_url(); ?>Welcome/studioToPeta",
                 dataType: "json",
                 success: function(data) {
                     // console.log(data);
@@ -233,7 +244,7 @@
                         if (data[i].latitude != null || data[i].longitude != null) {
                             datasearch.push({
                                 "titik_koordinat": [data[i].latitude, data[i].longitude],
-                                "nama": data[i].bt_nama
+                                "nama": data[i].nama_studio
                             });
                         }
                     }
@@ -255,14 +266,21 @@
                             center: new L.latLng([-8.58280355011038, 116.13464826731037])
                         });
 
-                        mymap.addLayer(new L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-                            maxZoom: 18,
-                            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-                                '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-                                'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                            id: 'mapbox/streets-v11',
-                        }));
+                        // mymap.addLayer(new L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+                        //     maxZoom: 18,
+                        //     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+                        //         '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                        //         'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                        //     id: 'mapbox/streets-v11',
+                        // }));
 
+mymap.addLayer(
+
+new L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+})
+    );
 
                         var markersLayer = new L.LayerGroup();
                         mymap.addLayer(markersLayer);
@@ -283,20 +301,20 @@
                             if (data[i].latitude != null || data[i].longitude != null) {
 
                                 var icon_map = L.icon({
-                                    iconUrl: '<?= base_url('assets/foto/bt/mapicon/') ?>' + data[i].stts_mapicon,
+                                    iconUrl: '<?= base_url('assets/foto_icon/icon.PNG') ?>',
                                     iconSize: [40, 40], // size of the icon
                                 });
 
 
-                                var nama_bt = data[i].bt_nama;
+                                var nama_studio = data[i].nama_studio;
                                 var titik_koordinat = [data[i].latitude, data[i].longitude];
 
                                 marker = new L.Marker(new L.latLng(titik_koordinat), {
-                                    title: nama_bt,
+                                    title: nama_studio,
                                     icon: icon_map
                                 });
 
-                                marker.bindPopup("<b>" + data[i].bt_nama + "</b><br>" + data[i].bt_alamat + "<br> <div class='row ml-1'><h6><a href='" + data[i].bt_id + "' class='btn btn-sm btn-outline-info' data-toggle='modal' data-target='#modal_detail" + data[i].bt_id + "'>Detail</a></h6><h6><a href='https://www.google.com/maps/dir/?api=1&origin=" + location.coords.latitude + "," + location.coords.longitude + "&destination=" + data[i].latitude + "," + data[i].longitude + "' class='btn btn-sm btn-outline-success' target='_blank'>Rute</a></h6></div>");
+                                marker.bindPopup("<b>" + data[i].nama_studio + "</b><br>" + data[i].alamat_studio + "<br> <div class='row ml-1'><h6><a href='<?= base_url('Studio/detailStudio/')?>" + data[i].id_studio + "' class='btn btn-sm btn-outline-info'>Detail</a></h6><h6><a href='https://www.google.com/maps/dir/?api=1&origin=" + location.coords.latitude + "," + location.coords.longitude + "&destination=" + data[i].latitude + "," + data[i].longitude + "' class='btn btn-sm btn-outline-success' target='_blank'>Rute</a></h6></div>");
 
                                 markersLayer.addLayer(marker);
 
@@ -309,7 +327,7 @@
             });
 
         }
-    </script> -->
+    </script> 
 </body>
 
 </html>

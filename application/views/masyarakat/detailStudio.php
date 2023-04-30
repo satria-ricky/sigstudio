@@ -36,7 +36,7 @@
 
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                    <div class="navbar-brand ml-3"> <b> SIG Studio Musik</b></div>
+                    <div class="navbar-brand ml-3"> <b><a href="<?= base_url(); ?>">SIG Studio Musik</a> </b></div>
 
 
                     <!-- Topbar Navbar -->
@@ -365,7 +365,7 @@
 
                 var lat = $("#latitude").val();
                 var long = $("#longitude").val();
-                window.open("https://www.google.com/maps/dir/?api=1&origin=" + location.coords.latitude + "," + location.coords.longitude + "&destination=" + long + "," + lat, '_blank');
+                window.open("https://www.google.com/maps/dir/?api=1&origin=" + location.coords.latitude + "," + location.coords.longitude + "&destination=" + lat + "," + long, '_blank');
 
 
             });
