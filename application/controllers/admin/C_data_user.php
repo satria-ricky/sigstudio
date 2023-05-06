@@ -6,7 +6,7 @@ class C_data_user extends CI_Controller
 
     public function index()
     {
-        $data['user'] = $this->db->query("SELECT * FROM tb_user")->result();
+        $data['user'] = $this->Mread->getAllUser();
         $data['studio'] = $this->db->query("SELECT * FROM tb_studio")->result();
         $data['title'] = 'Data User - Admin';
         $data['menu'] = '3';

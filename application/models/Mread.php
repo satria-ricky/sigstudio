@@ -3,6 +3,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Mread extends CI_Model {
 
+
+	//USER
+	public function getAllUser()
+	{
+		return $this->db->query("SELECT * from tb_user")->result();
+	}
+
+
+	//Studio
 	public function getAllStudio()
 	{
 		$query = $this->db->query("SELECT * from tb_studio");

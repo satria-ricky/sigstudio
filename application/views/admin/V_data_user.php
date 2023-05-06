@@ -94,7 +94,6 @@
                     <div class="mb-3">
                         <label for="basic-url">Sebagai</label>
                         <select class="form-control mb-3 <?= (form_error('level')) ? 'is-invalid' : ''; ?>" name="level" id="">
-                            <option value="0">Pilih</option>
                             <option value="1">Pengelola Studio</option>
                             <option value="2">Admin</option>
                         </select>
@@ -104,8 +103,6 @@
                     <div class="mb-3">
                         <label for="basic-url">Studio Yang Dikelola</label>
                         <select class="form-control mb-1 <?= (form_error('studio')) ? 'is-invalid' : ''; ?>" name="studio" id="">
-                            <option value="0">Pilih</option>
-                            <option value="2">Admin</option>
                             <?php foreach ($studio as $st) : ?>
                                 <option value="<?= $st->id_studio; ?>"><?= $st->nama_studio; ?></option>
                             <?php endforeach; ?>
