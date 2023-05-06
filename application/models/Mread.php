@@ -9,7 +9,11 @@ class Mread extends CI_Model {
 	{
 		return $this->db->query("SELECT * from tb_user")->result();
 	}
-
+	public function getAllUserById($id)
+	{
+		$sql = "SELECT * from tb_user WHERE id_user =?";
+		return $query=$this->db->query($sql,$id)->row_array(); 
+	}
 
 	//Studio
 	public function getAllStudio()

@@ -60,6 +60,41 @@
      });
  </script>
 
+ <script>
+     function modalUpdate(id) {
+         $.ajax({
+             url: '<?php echo base_url("User/getUserById/"); ?>' + id,
+             type: 'GET',
+             dataType: 'json',
+             success: function(data) {
+                 // Do something with the data here
+                 console.log(data);
+                 $('#nama_lengkap').val(data.nama_user);
+                 $('#sebagai').val(data.level_user);
+                 $('#studio_yg_dikelola').val(data.id_studio);
+                 $('#username').val(data.username);
+                 $('#password').val(data.password);
+             }
+         });
+     }
+
+     function submitUpdateData() {
+
+         Swal.fire({
+             title: 'Update?',
+             text: "Yakin ingin mengubah data?",
+             showCancelButton: true,
+             confirmButtonColor: '#3085d6',
+             cancelButtonColor: '#d33',
+             confirmButtonText: 'Update',
+             cancelButtonText: 'Batal'
+         }).then((result) => {
+             if (result) {
+                 document.getElementById("form-update").submit();
+             }
+         });
+     }
+ </script>
  </body>
 
  </html>

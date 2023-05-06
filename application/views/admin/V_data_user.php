@@ -40,15 +40,15 @@
 
 
                                 <td class="text-center">
-                                    <a href="" class="btn btn-primary "><i class="fas fa-link fa-sm text-white-50"></i> Detail</a>
+                                    <a href="<?= base_url('Studio/detailStudio/').$us->id_studio;?>" class="btn btn-primary " target="_blank"><i class="fas fa-link fa-sm text-white-50"></i> Detail</a>
 
                                     <a class="btn btn-danger" href="#modal-hapus" onclick="$('#modal-hapus #form_delete').attr('action', 
                 '<?= site_url('admin/C_data_user/Hapus/' . $us->id_user); ?>')" data-toggle="modal"><i class="fas fa-trash fa-sm text-white-50"></i>
                                         Hapus
                                     </a>
+<!-- <input type="hidden" value="" id="id_user"> -->
 
-
-                                    <a href="" class="btn btn-success"> <i class="fas fa-edit fa-sm text-white-50"></i> Update</a>
+                                    <a href="#modalUpdate" class="btn btn-success" onclick="modalUpdate(<?php echo $us->id_user ?>)"  data-toggle="modal"> <i class="fas fa-edit fa-sm text-white-50"></i> Update</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -136,6 +136,72 @@
     </div>
 </div>
 
+
+<!-- Modal -->
+<div class="modal fade" id="modalUpdate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form action="<?php echo base_url('admin/C_data_user/Update_user'); ?>" method="POST" id="form-update">
+                    <div class="mb-3">
+                        <label for="basic-url">Nama</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control <?= (form_error('nama')) ? 'is-invalid' : ''; ?>" placeholder="Masukkan Nama Lengkap" name="nama" id="nama_lengkap">
+                        </div>
+                        <?= form_error('nama', '<small class="text-danger">', '</small> '); ?>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="basic-url">Sebagai</label>
+                        <select class="form-control mb-3 <?= (form_error('level')) ? 'is-invalid' : ''; ?>" name="level" id="sebagai">
+                            <option value="1">Pengelola Studio</option>
+                            <option value="2">Admin</option>
+                        </select>
+                        <?= form_error('level', '<small class="text-danger">', '</small> '); ?>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="basic-url">Studio Yang Dikelola</label>
+                        <select class="form-control mb-1 <?= (form_error('studio')) ? 'is-invalid' : ''; ?>" name="studio" id="studio_yg_dikelola">
+                            <?php foreach ($studio as $st) : ?>
+                                <option value="<?= $st->id_studio; ?>"><?= $st->nama_studio; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <?= form_error('studio', '<small class="text-danger">', '</small> '); ?>
+                    </div>
+                    <div class="mb-3">
+                        <label for="basic-url">username</label>
+                        <div class="input-group mb-1">
+                            <input type="text" class="form-control <?= (form_error('username')) ? 'is-invalid' : ''; ?>" placeholder="Masukkan username" name="username" id="username">
+                        </div>
+                        <?= form_error('username', '<small class="text-danger">', '</small> '); ?>
+                    </div>
+                    <div class="mb-3">
+                        <label for="basic-url">password</label>
+                        <div class="input-group mb-1">
+                            <input type="password" class="form-control <?= (form_error('password')) ? 'is-invalid' : ''; ?>" placeholder="Masukkan password" name="password" id="password">
+
+                        </div>
+                        <?= form_error('password', '<small class="text-danger">', '</small> '); ?>
+                    </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                <button type="button" onclick="submitUpdateData()" class="btn btn-primary">Update Data</button>
+            </div>
+            </form>
+
+        </div>
+    </div>
+</div>
 
 <?php if (validation_errors()) : ?>
     <script type="text/javascript">
