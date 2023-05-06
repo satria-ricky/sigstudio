@@ -16,11 +16,22 @@ class Mread extends CI_Model {
 		return $query=$this->db->query($sql,$id)->row_array(); 
 	}
 
+
+	//ALAT
+
+	public function getAllAlat()
+	{
+		$query = $this->db->query("SELECT * from tb_alat");
+		return $query->result();
+	}
+
+
 	public function getAllPeralatanStudioById($id)
 	{
 		$sql = "SELECT * from tb_alat WHERE alat_idstudio =?";
 		return $query=$this->db->query($sql,$id)->result(); 
 	}
+
 
 	
 
