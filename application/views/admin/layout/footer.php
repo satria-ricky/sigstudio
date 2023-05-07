@@ -69,6 +69,7 @@
              success: function(data) {
                  // Do something with the data here
                  console.log(data);
+                 $('#id_user').val(data.id_user);
                  $('#nama_lengkap').val(data.nama_user);
                  $('#sebagai').val(data.level_user);
                  $('#studio_yg_dikelola').val(data.id_studio);
@@ -78,21 +79,13 @@
          });
      }
 
-     function submitUpdateData() {
+     function showConfirmUpdate(){
+        $('#modal-update').modal('show');
+     }
 
-         Swal.fire({
-             title: 'Update?',
-             text: "Yakin ingin mengubah data?",
-             showCancelButton: true,
-             confirmButtonColor: '#3085d6',
-             cancelButtonColor: '#d33',
-             confirmButtonText: 'Update',
-             cancelButtonText: 'Batal'
-         }).then((result) => {
-             if (result) {
-                 document.getElementById("form-update").submit();
-             }
-         });
+     
+     function submitUpdateData() {
+        document.getElementById("form-update").submit();
      }
  </script>
  </body>

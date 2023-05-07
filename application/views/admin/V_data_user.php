@@ -40,15 +40,15 @@
 
 
                                 <td class="text-center">
-                                    <a href="<?= base_url('Studio/detailStudio/').$us->id_studio;?>" class="btn btn-primary " target="_blank"><i class="fas fa-link fa-sm text-white-50"></i> Detail</a>
+                                    <a href="<?= base_url('Studio/detailStudio/') . $us->id_studio; ?>" class="btn btn-primary " target="_blank"><i class="fas fa-link fa-sm text-white-50"></i> Detail</a>
 
                                     <a class="btn btn-danger" href="#modal-hapus" onclick="$('#modal-hapus #form_delete').attr('action', 
                 '<?= site_url('admin/C_data_user/Hapus/' . $us->id_user); ?>')" data-toggle="modal"><i class="fas fa-trash fa-sm text-white-50"></i>
                                         Hapus
                                     </a>
-<!-- <input type="hidden" value="" id="id_user"> -->
 
-                                    <a href="#modalUpdate" class="btn btn-success" onclick="modalUpdate(<?php echo $us->id_user ?>)"  data-toggle="modal"> <i class="fas fa-edit fa-sm text-white-50"></i> Update</a>
+
+                                    <a href="#modalUpdate" class="btn btn-success" onclick="modalUpdate(<?php echo $us->id_user ?>)" data-toggle="modal"> <i class="fas fa-edit fa-sm text-white-50"></i> Update</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -191,11 +191,11 @@
                         </div>
                         <?= form_error('password', '<small class="text-danger">', '</small> '); ?>
                     </div>
-
+                    <input type="hidden" id="id_user" name="id_user">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
-                <button type="button" onclick="submitUpdateData()" class="btn btn-primary">Update Data</button>
+                <button type="button" onclick="showConfirmUpdate()" data-toggle="modal" class="btn btn-primary">Update Data</button>
             </div>
             </form>
 
@@ -223,12 +223,22 @@
     </script>
 <?php endif;  ?>
 
+<?php if ($this->session->flashdata('berhasil_ubah')) : ?>
+    <script type="text/javascript">
+        Swal.fire({
+            type: 'success',
+            title: 'Berhasil',
+            text: 'Data Berhasil Diubah !'
+        })
+    </script>
+<?php endif;  ?>
+
 <?php if ($this->session->flashdata('hapusP')) : ?>
     <script type="text/javascript">
         Swal.fire({
             type: 'success',
             title: 'Berhasil',
-            text: 'Data Produk Berhasil Dihapus !'
+            text: 'Data Berhasil Dihapus !'
         })
     </script>
 <?php endif;  ?>
@@ -246,6 +256,24 @@
                     <button type="submit" class="btn  btn-success "><i class="fas fa-check fa-sm text-white-50"></i> Yakin</button>
                     <button type="button" class="btn  btn-danger " data-dismiss="modal"><i class="fas fa-back fa-sm text-white-50"></i> Batal</button>
                 </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade " id="modal-update">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h5 class="modal-title">Yakin akan mengubah data ini?</h5>
+            </div>
+
+            <div class="modal-footer justify-content-right">
+
+                <button type="button" onclick="submitUpdateData()" class="btn  btn-success "><i class="fas fa-check fa-sm text-white-50"></i> Yakin</button>
+                <button type="button" class="btn  btn-danger " data-dismiss="modal"><i class="fas fa-back fa-sm text-white-50"></i> Batal</button>
             </div>
         </div>
         <!-- /.modal-content -->
