@@ -213,12 +213,12 @@
     </script>
 <?php endif; ?>
 
-<?php if ($this->session->flashdata('berhasil_tambah_user')) : ?>
+<?php if ($this->session->flashdata('berhasil_tambah')) : ?>
     <script type="text/javascript">
         Swal.fire({
             type: 'success',
             title: 'Berhasil',
-            text: 'Berhasil Tambah User Baru'
+            text: 'Data Baru Berhasil ditambahkan'
         })
     </script>
 <?php endif;  ?>

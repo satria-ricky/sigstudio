@@ -7,7 +7,7 @@ class C_data_user extends CI_Controller
     public function index()
     {
         $data['user'] = $this->Mread->getAllUser();
-        $data['studio'] = $this->db->query("SELECT * FROM tb_studio")->result();
+        $data['studio'] = $this->Mread->getAllStudio();
         $data['title'] = 'Data User - Admin';
         $data['menu'] = '3';
         $this->load->view('admin/layout/header', $data);
@@ -55,7 +55,7 @@ class C_data_user extends CI_Controller
 
             $tambah2 = $this->Mtambah->tambah('tb_user', $data);
             if ($tambah2 > 0) {
-                $this->session->set_flashdata('berhasil_tambah_user', 'true');
+                $this->session->set_flashdata('berhasil_tambah', 'true');
                 redirect('admin/C_data_user');
             }
         }
