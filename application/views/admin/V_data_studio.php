@@ -101,13 +101,37 @@
                         <?= form_error('alamat_st', '<small class="text-danger">', '</small> '); ?>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="basic-url">Latitude</label>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control <?= (form_error('latitude_st')) ? 'is-invalid' : ''; ?>" placeholder="Masukkan Latitude Studio" name="latitude_st">
+                    <div class="form-group">
+
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="basic-url">Latitude</label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control <?= (form_error('latitude_st')) ? 'is-invalid' : ''; ?>" placeholder="Masukkan Latitude Studio" name="latitude_st" id="latitudeTambah">
+                                    </div>
+                                    <?= form_error('latitude_st', '<small class="text-danger">', '</small> '); ?>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="basic-url">Longitude</label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control <?= (form_error('longitude_st')) ? 'is-invalid' : ''; ?>" placeholder="Masukkan Longitude Studio" name="longitude_st" id="longitudeTambah">
+                                    </div>
+                                    <?= form_error('longitude_st', '<small class="text-danger">', '</small> '); ?>
+                                </div>
+                            </div>
                         </div>
-                        <?= form_error('latitude_st', '<small class="text-danger">', '</small> '); ?>
+                        <div class="row">
+                            <div class="col-6">
+                            <button type="button" class="tbn btn-sm btn-focus" onclick="setLocationTambah()"> Gunakan Lokasi saat ini! </button>
+                            </div>
+                            
+                        </div>
                     </div>
+
+
 
                     <div class="row">
                         <div class="col-7 mb-3">
@@ -153,26 +177,6 @@
         })
     </script>
 <?php endif; ?>
-
-<?php if ($this->session->flashdata('berhasil_tambah_studio')) : ?>
-    <script type="text/javascript">
-        Swal.fire({
-            type: 'success',
-            title: 'Berhasil',
-            text: 'Berhasil Tambah Studio Baru'
-        })
-    </script>
-<?php endif;  ?>
-
-<?php if ($this->session->flashdata('hapusP')) : ?>
-    <script type="text/javascript">
-        Swal.fire({
-            type: 'success',
-            title: 'Berhasil',
-            text: 'Data Studio Berhasil Dihapus !'
-        })
-    </script>
-<?php endif;  ?>
 
 <div class="modal fade " id="modal-hapus">
     <div class="modal-dialog ">

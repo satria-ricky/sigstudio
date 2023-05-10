@@ -74,16 +74,22 @@ class C_data_user extends CI_Controller
     {
         $id = $this->input->post('id_user');
         $data = $this->Mread->getAllUserById($id);
+        // var_dump($data['username']);
+        // die;
+        $username3    = $this->input->post('username');
+        if ($data['username'] != $username3) {
+            $this->form_validation->set_rules('username', 'username2', 'required|trim|is_unique[tb_user.username]|min_length[5]|max_length[15]', [
+                'required' => 'Anda Belum Mengisi username',
+                'is_unique' => 'Username sudah ada'
+            ]);
+        }
 
-        
+
         $this->form_validation->set_rules('nama', 'nama2', 'required|trim', [
             'required' => 'Anda Belum Mengisi Nama',
         ]);
 
-        $this->form_validation->set_rules('username', 'username2', 'required|trim|is_unique[tb_user.username]|min_length[5]|max_length[15]', [
-            'required' => 'Anda Belum Mengisi username',
-            'is_unique' => 'Username sudah ada'
-        ]);
+
         $this->form_validation->set_rules('password', 'password1', 'required|trim', [
             'required' => 'Anda Belum Mengisi password',
             'min_length' => 'Password Kurang dari 5 karakter',
@@ -98,7 +104,7 @@ class C_data_user extends CI_Controller
 
 
             $nama3  = htmlspecialchars($this->input->post('nama', true));
-            $username3    = $this->input->post('username');
+
             $pass        = $this->input->post('password');
             $level        = $this->input->post('level');
             $studio3        = $this->input->post('studio');
@@ -111,14 +117,13 @@ class C_data_user extends CI_Controller
                 'id_studio'                =>    $studio3,
             );
 
-        //     var_dump('ini '.$id);
-        // die;
-        
-            $this->Medit->update('id_user = '.$id, $data,'tb_user');
-            
+            //     var_dump('ini '.$id);
+            // die;
+
+            $this->Medit->update('id_user = ' . $id, $data, 'tb_user');
+
             $this->session->set_flashdata('berhasil_ubah', 'true');
-                redirect('admin/C_data_user');
+            redirect('admin/C_data_user');
         }
     }
-
 }

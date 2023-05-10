@@ -6,12 +6,12 @@ class C_data_studio extends CI_Controller
 
     public function index()
     {
-        $data['studio'] = $this->db->query("SELECT * FROM tb_studio")->result();
+        $data['studio'] = $this->Mread->getAllStudio();
         $data['title'] = 'Data Studio - Admin';
         $data['menu'] = '1';
         $this->load->view('admin/layout/header', $data);
         $this->load->view('admin/layout/sidebar', $data);
-        $this->load->view('admin/V_data_studio');
+        $this->load->view('admin/V_data_studio',$data);
         $this->load->view('admin/layout/footer');
     }
 
@@ -25,6 +25,9 @@ class C_data_studio extends CI_Controller
         ]);
         $this->form_validation->set_rules('latitude_st', 'latitude', 'required|trim', [
             'required' => 'Anda Belum Mengisi latitude studio',
+        ]);
+        $this->form_validation->set_rules('longitude_st', 'longitude', 'required|trim', [
+            'required' => 'Anda Belum Mengisi longitude studio',
         ]);
 
         $this->form_validation->set_rules('harga', 'ruangan2', 'required|trim', [
@@ -53,6 +56,7 @@ class C_data_studio extends CI_Controller
             $nama    = $this->input->post('nama_st');
             $alamat        = $this->input->post('alamat_st');
             $latitude        = $this->input->post('latitude_st');
+            $longitude        = $this->input->post('longitude_st');
             $harga        = $this->input->post('harga');
             $tahun        = $this->input->post('thn_st');
 
@@ -63,12 +67,13 @@ class C_data_studio extends CI_Controller
                 'tahun_didirikan'         =>    $tahun,
                 'foto_studio'             =>    $gambar2,
                 'latitude'                =>    $latitude,
+                'longitude'                =>    $longitude,
                 'harga_sewa'          =>    $harga,
             );
 
             $tambah2 = $this->Mtambah->tambah('tb_studio', $data);
             if ($tambah2 > 0) {
-                $this->session->set_flashdata('berhasil_tambah_studio', 'true');
+                $this->session->set_flashdata('berhasil_tambah', 'true');
                 redirect('admin/C_data_studio');
             }
         }

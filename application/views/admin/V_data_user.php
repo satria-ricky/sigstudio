@@ -213,35 +213,7 @@
     </script>
 <?php endif; ?>
 
-<?php if ($this->session->flashdata('berhasil_tambah')) : ?>
-    <script type="text/javascript">
-        Swal.fire({
-            type: 'success',
-            title: 'Berhasil',
-            text: 'Data Baru Berhasil ditambahkan'
-        })
-    </script>
-<?php endif;  ?>
 
-<?php if ($this->session->flashdata('berhasil_ubah')) : ?>
-    <script type="text/javascript">
-        Swal.fire({
-            type: 'success',
-            title: 'Berhasil',
-            text: 'Data Berhasil Diubah !'
-        })
-    </script>
-<?php endif;  ?>
-
-<?php if ($this->session->flashdata('hapusP')) : ?>
-    <script type="text/javascript">
-        Swal.fire({
-            type: 'success',
-            title: 'Berhasil',
-            text: 'Data Berhasil Dihapus !'
-        })
-    </script>
-<?php endif;  ?>
 
 <div class="modal fade " id="modal-hapus">
     <div class="modal-dialog ">

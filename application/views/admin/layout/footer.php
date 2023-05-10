@@ -79,15 +79,61 @@
          });
      }
 
-     function showConfirmUpdate(){
-        $('#modal-update').modal('show');
+     function showConfirmUpdate() {
+         $('#modal-update').modal('show');
      }
 
-     
+
      function submitUpdateData() {
-        document.getElementById("form-update").submit();
+         document.getElementById("form-update").submit();
+     }
+
+     function setLocationTambah() {
+
+         navigator.geolocation.getCurrentPosition(function(location) {
+             var latlng = new L.LatLng(location.coords.latitude, location.coords.longitude);
+
+             //map view 
+             console.log(location.coords.latitude, location.coords.longitude);
+
+             document.getElementById("latitudeTambah").value = location.coords.latitude;
+             document.getElementById("longitudeTambah").value = location.coords.longitude;
+
+         });
+
      }
  </script>
+
+ <?php if ($this->session->flashdata('berhasil_tambah')) : ?>
+     <script type="text/javascript">
+         Swal.fire({
+             type: 'success',
+             title: 'Berhasil',
+             text: 'Data Baru Berhasil ditambahkan'
+         })
+     </script>
+ <?php endif;  ?>
+
+ <?php if ($this->session->flashdata('berhasil_ubah')) : ?>
+     <script type="text/javascript">
+         Swal.fire({
+             type: 'success',
+             title: 'Berhasil',
+             text: 'Data Berhasil Diubah !'
+         })
+     </script>
+ <?php endif;  ?>
+
+ <?php if ($this->session->flashdata('hapusP')) : ?>
+     <script type="text/javascript">
+         Swal.fire({
+             type: 'success',
+             title: 'Berhasil',
+             text: 'Data Berhasil Dihapus !'
+         })
+     </script>
+ <?php endif;  ?>
+
  </body>
 
  </html>
