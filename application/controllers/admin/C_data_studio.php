@@ -81,9 +81,9 @@ class C_data_studio extends CI_Controller
 
     public function Hapus($id)
     {
-        $this->session->set_flashdata('hapusP', 'true');
         $where = array('id_studio' => $id);
         $this->Mhapus->hapus_data($where, 'tb_studio');
+        $this->session->set_flashdata('hapusP', 'true');
         redirect('admin/C_data_studio');
     }
 }

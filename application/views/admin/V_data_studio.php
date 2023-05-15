@@ -35,7 +35,8 @@
 
                                 <td class="text-center">
 
-                                    <a href="" class="btn btn-primary "><i class="fas fa-link fa-sm text-white-50"></i> Detail</a>
+                                <a href="<?= base_url('Studio/detailStudio/') . $us->id_studio; ?>" class="btn btn-primary " target="_blank"><i class="fas fa-link fa-sm text-white-50"></i> Detail</a>
+
 
 
                                     <a class="btn btn-danger" href="#modal-hapus" onclick="$('#modal-hapus #form_delete').attr('action', 
