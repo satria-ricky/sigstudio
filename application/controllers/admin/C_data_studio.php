@@ -11,7 +11,7 @@ class C_data_studio extends CI_Controller
         $data['menu'] = '1';
         $this->load->view('admin/layout/header', $data);
         $this->load->view('admin/layout/sidebar', $data);
-        $this->load->view('admin/V_data_studio',$data);
+        $this->load->view('admin/V_data_studio', $data);
         $this->load->view('admin/layout/footer');
     }
 
@@ -78,6 +78,81 @@ class C_data_studio extends CI_Controller
             }
         }
     }
+
+    public function Update_studio()
+    {
+        $this->form_validation->set_rules('nama_st', 'nama2', 'required|trim', [
+            'required' => 'Anda Belum Mengisi Nama',
+        ]);
+        $this->form_validation->set_rules('alamat_st', 'alamat2', 'required|trim', [
+            'required' => 'Anda Belum Mengisi Nama',
+        ]);
+        $this->form_validation->set_rules('latitude_st', 'latitude', 'required|trim', [
+            'required' => 'Anda Belum Mengisi latitude studio',
+        ]);
+        $this->form_validation->set_rules('longitude_st', 'longitude', 'required|trim', [
+            'required' => 'Anda Belum Mengisi longitude studio',
+        ]);
+
+        $this->form_validation->set_rules('harga', 'ruangan2', 'required|trim', [
+            'required' => 'Anda Belum Mengisi harga sewa studio',
+        ]);
+        $this->form_validation->set_rules('thn_st', 'thn2', 'required|trim', [
+            'required' => 'Anda Belum Mengisi tahun',
+        ]);
+
+
+        $id    = $this->input->post('id_st');
+        $foto_lama    = $this->input->post('foto_lama_st');
+        $nama    = $this->input->post('nama_st');
+        $alamat        = $this->input->post('alamat_st');
+        $latitude        = $this->input->post('latitude_st');
+        $longitude        = $this->input->post('longitude_st');
+        $harga        = $this->input->post('harga');
+        $tahun        = $this->input->post('thn_st');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('error');
+            $this->index();
+        } else {
+
+            $upload_foto = $_FILES['gambar']['name'];
+            if ($upload_foto) {
+
+                $config['upload_path'] = '././assets/foto_studio';
+                $config['allowed_types'] = 'jpg|png|jpeg';
+                $this->load->library('upload', $config);
+                $gambar2 = $this->upload->data('file_name');
+
+                unlink(FCPATH . 'assets/foto_studio/' . $foto_lama);
+
+                $data = array(
+                    'nama_studio'             =>    $nama,
+                    'alamat_studio'           =>    $alamat,
+                    'tahun_didirikan'         =>    $tahun,
+                    'foto_studio'             =>    $gambar2,
+                    'latitude'                =>    $latitude,
+                    'longitude'                =>    $longitude,
+                    'harga_sewa'          =>    $harga,
+                );
+            } else {
+
+                $data = array(
+                    'nama_studio'             =>    $nama,
+                    'alamat_studio'           =>    $alamat,
+                    'tahun_didirikan'         =>    $tahun,
+                    'latitude'                =>    $latitude,
+                    'longitude'                =>    $longitude,
+                    'harga_sewa'          =>    $harga,
+                );
+            }
+            $this->Medit->update('id_studio = ' . $id, $data, 'tb_studio');
+            $this->session->set_flashdata('berhasil_ubah', 'true');
+            redirect('admin/C_data_studio');
+        }
+    }
+
+
 
     public function Hapus($id)
     {
