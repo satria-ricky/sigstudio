@@ -35,7 +35,7 @@
 
                                 <td class="text-center">
 
-                                <a href="<?= base_url('Studio/detailStudio/') . $us->id_studio; ?>" class="btn btn-primary " target="_blank"><i class="fas fa-link fa-sm text-white-50"></i> Detail</a>
+                                    <a href="<?= base_url('Studio/detailStudio/') . $us->id_studio; ?>" class="btn btn-primary " target="_blank"><i class="fas fa-link fa-sm text-white-50"></i> Detail</a>
 
 
 
@@ -45,7 +45,7 @@
                                     </a>
 
 
-                                    <a href="" class="btn btn-success"> <i class="fas fa-edit fa-sm text-white-50"></i> Update</a>
+                                    <a href="#modalUpdate" class="btn btn-success" onclick="modalUpdateStudio(<?php echo $us->id_studio ?>)" data-toggle="modal"> <i class="fas fa-edit fa-sm text-white-50"></i> Update</a>
                                 </td>
                                 </td>
                             </tr>
@@ -126,9 +126,9 @@
                         </div>
                         <div class="row">
                             <div class="col-6">
-                            <button type="button" class="tbn btn-sm btn-focus" onclick="setLocationTambah()"> Gunakan Lokasi saat ini! </button>
+                                <button type="button" class="tbn btn-sm btn-focus" onclick="setLocationTambah()"> Gunakan Lokasi saat ini! </button>
                             </div>
-                            
+
                         </div>
                     </div>
 
@@ -197,4 +197,104 @@
         <!-- /.modal-content -->
     </div>
     <!-- /.modal-dialog -->
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalUpdate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Studio Musik</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <?php echo form_open_multipart('admin/C_data_studio/Tambah_studio'); ?>
+
+                <form action="<?php echo base_url('admin/C_data_studio/Tambah_studio'); ?>" method="POST">
+
+                    <div class="mb-3">
+                        <label for="basic-url">Nama Studio</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control <?= (form_error('nama_st')) ? 'is-invalid' : ''; ?>" placeholder="Masukkan Nama Studio" name="nama_st">
+                        </div>
+                        <?= form_error('nama_st', '<small class="text-danger">', '</small> '); ?>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label for="basic-url">Alamat Studio</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control <?= (form_error('alamat_st')) ? 'is-invalid' : ''; ?>" placeholder="Masukkan Alamat Studio" name="alamat_st">
+                        </div>
+                        <?= form_error('alamat_st', '<small class="text-danger">', '</small> '); ?>
+                    </div>
+
+                    <div class="form-group">
+
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="basic-url">Latitude</label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control <?= (form_error('latitude_st')) ? 'is-invalid' : ''; ?>" placeholder="Masukkan Latitude Studio" name="latitude_st" id="latitudeTambah">
+                                    </div>
+                                    <?= form_error('latitude_st', '<small class="text-danger">', '</small> '); ?>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="basic-url">Longitude</label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control <?= (form_error('longitude_st')) ? 'is-invalid' : ''; ?>" placeholder="Masukkan Longitude Studio" name="longitude_st" id="longitudeTambah">
+                                    </div>
+                                    <?= form_error('longitude_st', '<small class="text-danger">', '</small> '); ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <button type="button" class="tbn btn-sm btn-focus" onclick="setLocationTambah()"> Gunakan Lokasi saat ini! </button>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-7 mb-3">
+                            <label for="basic-url">Harga Sewa</label>
+                            <div class="input-group mb-3">
+                                <input type="number" class="form-control <?= (form_error('harga')) ? 'is-invalid' : ''; ?>" placeholder="_ _ _ _ _ _" name="harga">
+                            </div>
+                            <?= form_error('harga', '<small class="text-danger">', '</small> '); ?>
+                        </div>
+                        <div class="mb-3 col-5">
+                            <label for="basic-url">Tahun di dirikan</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control <?= (form_error('thn_st')) ? 'is-invalid' : ''; ?>" placeholder="_ _ _ _" name="thn_st">
+                            </div>
+                            <?= form_error('thn_st', '<small class="text-danger">', '</small> '); ?>
+                        </div>
+                    </div>
+
+
+                    <div class="custom-file">
+                        <input type="file" name="gambar" class="custom-file-input <?= (form_error('gambar')) ? 'is-invalid' : ''; ?>" id="exampleInputFile">
+                        <label class="custom-file-label" for="exampleInputFile">Pilih Foto Studio</label>
+                        <?= form_error('gambar', '<small class="text-danger">', '</small> '); ?>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                <button type="submit" class="btn btn-primary">Tambah Data</button>
+            </div>
+            </form>
+            <?php echo form_close(); ?>
+        </div>
+    </div>
 </div>

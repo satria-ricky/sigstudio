@@ -88,6 +88,24 @@
          document.getElementById("form-update").submit();
      }
 
+     function modalUpdateStudio(id) {
+         $.ajax({
+             url: '<?php echo base_url("User/getUserById/"); ?>' + id,
+             type: 'GET',
+             dataType: 'json',
+             success: function(data) {
+                 // Do something with the data here
+                 console.log(data);
+                 $('#id_user').val(data.id_user);
+                 $('#nama_lengkap').val(data.nama_user);
+                 $('#sebagai').val(data.level_user);
+                 $('#studio_yg_dikelola').val(data.id_studio);
+                 $('#username').val(data.username);
+                 $('#password').val(data.password);
+             }
+         });
+     }
+
      function setLocationTambah() {
 
          navigator.geolocation.getCurrentPosition(function(location) {
