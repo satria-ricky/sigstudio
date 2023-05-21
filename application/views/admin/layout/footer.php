@@ -83,25 +83,37 @@
          $('#modal-update').modal('show');
      }
 
+     function showConfirmUpdateStudio() {
+         $('#modal-update-studio').modal('show');
+    // console.log('ini'); 
+    }
+
+
 
      function submitUpdateData() {
+         document.getElementById("form-update").submit();
+     }
+     
+     function submitUpdateDataStudio() {
          document.getElementById("form-update").submit();
      }
 
      function modalUpdateStudio(id) {
          $.ajax({
-             url: '<?php echo base_url("User/getUserById/"); ?>' + id,
+             url: '<?php echo base_url("Studio/getStudioById/"); ?>' + id,
              type: 'GET',
              dataType: 'json',
              success: function(data) {
                  // Do something with the data here
                  console.log(data);
-                 $('#id_user').val(data.id_user);
-                 $('#nama_lengkap').val(data.nama_user);
-                 $('#sebagai').val(data.level_user);
-                 $('#studio_yg_dikelola').val(data.id_studio);
-                 $('#username').val(data.username);
-                 $('#password').val(data.password);
+                 $('#id_st').val(data.id_studio);
+                 $('#foto_lama_st').val(data.foto_studio);
+                 $('#nama_st').val(data.nama_studio);
+                 $('#alamat_st').val(data.alamat_studio);
+                 $('#latitude_st').val(data.latitude);
+                 $('#longitude_st').val(data.longitude);
+                 $('#harga_st').val(data.harga_sewa);
+                 $('#thn_st').val(data.tahun_didirikan);
              }
          });
      }
@@ -116,6 +128,21 @@
 
              document.getElementById("latitudeTambah").value = location.coords.latitude;
              document.getElementById("longitudeTambah").value = location.coords.longitude;
+
+         });
+
+     }
+     function setLocationUpdate() {
+
+         navigator.geolocation.getCurrentPosition(function(location) {
+             var latlng = new L.LatLng(location.coords.latitude, location.coords.longitude);
+
+             //map view 
+             console.log(location.coords.latitude, location.coords.longitude);
+
+             document.getElementById("latitude_st").value = location.coords.latitude;
+             document.getElementById("longitude_st").value = location.coords.longitude;
+
 
          });
 

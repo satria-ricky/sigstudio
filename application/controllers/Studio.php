@@ -31,4 +31,10 @@ class Studio extends CI_Controller
 		$this->load->view('masyarakat/detailStudio', $v_data);
 	}
 
+	public function getStudioById($v_id)
+	{
+		$data = $this->Mread->getAllStudioById($v_id);
+		echo json_encode($data);
+	}
+
 }

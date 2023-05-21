@@ -111,20 +111,18 @@ class C_data_studio extends CI_Controller
         $harga        = $this->input->post('harga');
         $tahun        = $this->input->post('thn_st');
 
+
+
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('error');
             $this->index();
         } else {
 
-            $upload_foto = $_FILES['gambar']['name'];
-            if ($upload_foto) {
-
-                $config['upload_path'] = '././assets/foto_studio';
-                $config['allowed_types'] = 'jpg|png|jpeg';
-                $this->load->library('upload', $config);
+            $config['upload_path'] = '././assets/foto_studio';
+            $config['allowed_types'] = 'jpg|png|jpeg';
+            $this->load->library('upload', $config);
+            if ($this->upload->do_upload('gambar')) {
                 $gambar2 = $this->upload->data('file_name');
-
-                unlink(FCPATH . 'assets/foto_studio/' . $foto_lama);
 
                 $data = array(
                     'nama_studio'             =>    $nama,
@@ -136,7 +134,6 @@ class C_data_studio extends CI_Controller
                     'harga_sewa'          =>    $harga,
                 );
             } else {
-
                 $data = array(
                     'nama_studio'             =>    $nama,
                     'alamat_studio'           =>    $alamat,
@@ -147,9 +144,11 @@ class C_data_studio extends CI_Controller
                 );
             }
             $this->Medit->update('id_studio = ' . $id, $data, 'tb_studio');
-            $this->session->set_flashdata('berhasil_ubah', 'true');
-            redirect('admin/C_data_studio');
+        $this->session->set_flashdata('berhasil_ubah', 'true');
+        redirect('admin/C_data_studio');
         }
+
+        
     }
 
 
