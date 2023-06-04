@@ -6,7 +6,8 @@ class C_data_peralatan extends CI_Controller
     public function index()
     {
         $id = $this->session->userdata('id_studio');
-
+        // var_dump($id);
+        // die;
         $data['alat'] = $this->Mread->getAllPeralatanStudioById($id);
         $data['ruangan'] = $this->Mread->getAllRuanganStudioById($id);
         $data['title'] = 'Data Peralatan - Pengelola';
@@ -21,6 +22,15 @@ class C_data_peralatan extends CI_Controller
     {
         $this->form_validation->set_rules('nama_at', 'nama2', 'required|trim', [
             'required' => 'Anda Belum Mengisi Nama Alat',
+        ]);
+        $this->form_validation->set_rules('jenis_at', 'jenis_at', 'required|trim', [
+            'required' => 'Anda Belum Mengisi Jenis Alat',
+        ]);
+        $this->form_validation->set_rules('kondisi_at', 'kondisi_at', 'required|trim', [
+            'required' => 'Anda Belum Mengisi Kondisi Alat',
+        ]);
+        $this->form_validation->set_rules('nama_ruangan', 'nama_ruangan', 'required|trim', [
+            'required' => 'Anda Belum Mengisi Nama Ruangan',
         ]);
 
 
@@ -43,6 +53,7 @@ class C_data_peralatan extends CI_Controller
             $jenis        = $this->input->post('jenis_at');
             $kondisi        = $this->input->post('kondisi_at');
             $id = $this->session->userdata('id_studio');
+            $id_ruangan = $this->input->post('nama_ruangan');
 
 
 
@@ -51,13 +62,14 @@ class C_data_peralatan extends CI_Controller
                 'foto_alat'         =>    $gambar2,
                 'jenis_alat'        =>    $jenis,
                 'kondisi_alat'        =>    $kondisi,
-                'id_studio'         =>    $id,
+                'alat_idruangan'         =>    $id_ruangan,
+                'alat_idstudio'         =>    $id,
 
             );
 
             $tambah2 = $this->Mtambah->tambah('tb_alat', $data);
             if ($tambah2 > 0) {
-                $this->session->set_flashdata('berhasil_tambah_alat', 'true');
+                $this->session->set_flashdata('berhasil_tambah', 'true');
                 redirect('pengelola/C_data_peralatan');
             }
         }
