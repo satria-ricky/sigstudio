@@ -57,7 +57,93 @@
         $(this).next('.custom-file-label').addClass("selected").html(fileName);
 
     });
+
+    function modalUpdate(id) {
+        $.ajax({
+            url: '<?php echo base_url("Studio/getUserStudioById/"); ?>' + id,
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                // Do something with the data here
+                console.log(data);
+                $('#id_user').val(data.id_user);
+                $('#nama_lengkap').val(data.nama_user);
+                // $('#sebagai').val(data.level_user);
+                // $('#studio_yg_dikelola').val(data.id_studio);
+                $('#username').val(data.username);
+                $('#password').val(data.password);
+
+                $('#id_st').val(data.id_studio);
+                 $('#foto_lama_st').val(data.foto_studio);
+                 $('#nama_st').val(data.nama_studio);
+                 $('#alamat_st').val(data.alamat_studio);
+                 $('#latitude_st').val(data.latitude);
+                 $('#longitude_st').val(data.longitude);
+                 $('#harga_st').val(data.harga_sewa);
+                 $('#thn_st').val(data.tahun_didirikan);
+
+            }
+        });
+    }
+function modalUpdateStudio(id) {
+         $.ajax({
+             url: '<?php echo base_url("Studio/getUserStudioById/"); ?>' + id,
+             type: 'GET',
+             dataType: 'json',
+             success: function(data) {
+                 // Do something with the data here
+                 console.log(data);
+                 $('#id_st').val(data.id_studio);
+                 $('#foto_lama_st').val(data.foto_studio);
+                 $('#nama_st').val(data.nama_studio);
+                 $('#alamat_st').val(data.alamat_studio);
+                 $('#latitude_st').val(data.latitude);
+                 $('#longitude_st').val(data.longitude);
+                 $('#harga_st').val(data.harga_sewa);
+                 $('#thn_st').val(data.tahun_didirikan);
+             }
+         });
+     }
+
+
+    function showConfirmUpdate() {
+        $('#modal-update').modal('show');
+    }
+
+    function submitUpdateData() {
+        document.getElementById("form-update").submit();
+    }
+
+    function setLocationUpdate() {
+
+navigator.geolocation.getCurrentPosition(function(location) {
+    var latlng = new L.LatLng(location.coords.latitude, location.coords.longitude);
+
+    //map view 
+    console.log(location.coords.latitude, location.coords.longitude);
+
+    document.getElementById("latitude_st").value = location.coords.latitude;
+    document.getElementById("longitude_st").value = location.coords.longitude;
+
+
+});
+
+}
+
 </script>
+
+
+
+<?php if ($this->session->flashdata('berhasil_ubah')) : ?>
+    <script type="text/javascript">
+        Swal.fire({
+            type: 'success',
+            title: 'Berhasil',
+            text: 'Data Berhasil Diubah !'
+        })
+    </script>
+<?php endif;  ?>
+
 
 
 

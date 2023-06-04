@@ -37,4 +37,10 @@ class Studio extends CI_Controller
 		echo json_encode($data);
 	}
 
+	public function getUserStudioById($v_id)
+	{
+		$data = $this->Mread->getUserStudioById($v_id);
+		echo json_encode($data);
+	}
+
 }

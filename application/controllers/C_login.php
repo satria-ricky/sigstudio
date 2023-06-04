@@ -36,6 +36,7 @@ class C_login extends CI_Controller
                         'nama' => $user3['nama_user'],
                         'level' => $user3['level_user'],
                         'id_studio' => $user3['id_studio'],
+                        'id_user' => $user3['id_user'],
                     ];
 
 

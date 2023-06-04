@@ -29,6 +29,12 @@ class Mread extends CI_Model {
 		return $query=$this->db->query($sql,$id)->row_array(); 
 	}
 
+	public function getUserStudioById($id)
+	{
+		$sql = "SELECT tb_user.*,tb_studio.* FROM `tb_user` LEFT JOIN tb_studio on tb_user.id_studio = tb_studio.id_studio WHERE tb_user.id_user = ?";
+		return $query=$this->db->query($sql,$id)->row_array(); 
+	}
+
 
 	//ALAT
 

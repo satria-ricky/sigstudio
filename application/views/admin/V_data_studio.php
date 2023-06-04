@@ -215,7 +215,7 @@
                 <?php echo form_open_multipart('admin/C_data_studio/Update_studio', 'id="form-update"'); ?>
 
 
-                
+
                 <form action="<?php echo base_url('admin/C_data_studio/Update_studio'); ?>">
 
                     <input type="hidden" value="" id="id_st" name="id_st">

@@ -19,4 +19,14 @@
     <link href="<?php echo base_url('assets/dashboardTemp/'); ?>css/sb-admin-2.min.css" rel="stylesheet">
     <link href="<?php echo base_url('assets/dashboardTemp/'); ?>vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.0/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.3.0/dist/leaflet.js"></script>
+
+  <link rel="stylesheet" href="<?= base_url() ?>leaflet-locatecontrol/dist/L.Control.Locate.min.css" />
+<script src="<?= base_url() ?>leaflet-locatecontrol/src/L.Control.Locate.js"></script>
+
+<link rel="stylesheet" href="<?= base_url() ?>leaflet-search/src/leaflet-search.css" />
+<script src="<?= base_url() ?>leaflet-search/src/leaflet-search.js"></script>
+
+
 </head>
