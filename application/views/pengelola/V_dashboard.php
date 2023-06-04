@@ -26,7 +26,7 @@
                                 <div class="h5  font-weight-bold text-gray-800">Tahun Berdiri</div>
                             </div>
                             <div class="col ">
-                                <div class="h5 text-gray-800">: 20 Ruangan</div>
+                                <div class="h5 text-gray-800">: <?= $total_ruangan ?> Ruangan</div>
                                 <div class="h5   text-gray-800">: <?= $st->harga_sewa; ?></div>
                                 <div class="h5   text-gray-800">: <?= $st->alamat_studio; ?></div>
                                 <div class="h5  text-gray-800">: <?= $st->tahun_didirikan; ?></div>

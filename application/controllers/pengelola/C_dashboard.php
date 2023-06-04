@@ -8,7 +8,10 @@ class C_dashboard extends CI_Controller
     {
         $id = $this->session->userdata('id_studio');
 
-        $data['studio'] = $this->db->query("SELECT * FROM tb_studio st WHERE st.id_studio=$id")->result();
+        $data['studio'] = $this->db->query("SELECT * FROM tb_studio WHERE id_studio=$id")->result();
+        $data['total_ruangan'] = count($this->db->query("SELECT * FROM tb_ruangan WHERE ruangan_idstudio=$id")->result());
+        // var_dump($data['studio']);
+        // die;
         $data['title'] = 'Dashboard - PENGELOLA';
         $data['menu'] = '0';
         $data['menu_atas'] = '0';
