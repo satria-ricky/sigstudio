@@ -33,19 +33,25 @@
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Studio no satu</td>
-                            <td>Jl. Swakarsa</td>
-                            <td class="text-center">
-                                <a href="" class="btn btn-primary "><i class="fas fa-link fa-sm text-white-50"></i> Detail</a>
+                    <?php $no = 1; ?>
+                        <?php foreach ($jadwal as $j) : ?>
+                            <tr>
+                                <td><?= $no++; ?></td>
+                                <td><?= $j->nama_ruangan; ?></td>
+                                <td><?= $j->tanggal_boking; ?></td>
+                                <td class="text-center">
+                               
 
-                                <a href="" class="btn btn-danger  mx-2"> <i class="fas fa-trash fa-sm text-white-50"></i> Hapus</a>
+                                    <a class="btn btn-danger" href="<?= site_url('' . $j->no_boking); ?>" onclick="return confirm('Are you sure?')" ><i class="fas fa-trash fa-sm text-white-50"></i>
+                                        Hapus
+                                    </a>
 
-                                <a href="" class="btn btn-success"> <i class="fas fa-edit fa-sm text-white-50"></i> Update</a>
-                            </td>
-                        </tr>
 
+                                    <a href="#modalUpdateRuagan" class="btn btn-success" onclick="modalUpdateRuangan(<?php echo $j->no_boking ?>)" data-toggle="modal"> <i class="fas fa-edit fa-sm text-white-50"></i> Update</a>
+                                </td>
+                               
+                            </tr>
+                        <?php endforeach; ?>
 
                     </tbody>
                 </table>
@@ -76,7 +82,7 @@
             </div>
             <div class="modal-body">
 
-                <form action="<?php echo base_url('admin/C_data_user/Tambah_user'); ?>" method="POST">
+                <form action="<?php echo base_url('pengelola/C_jadwal_boking/Tambah_jadwal'); ?>" method="POST" onsubmit="return confirm(`Yakin di tambah?`);">
                     <div class="mb-3">
                         <label for="basic-url">Nama Pelanggan</label>
                         <div class="input-group mb-3">
@@ -89,8 +95,9 @@
                         <label for="basic-url">Ruangan</label>
                         <select class="form-control mb-3 <?= (form_error('ruangan')) ? 'is-invalid' : ''; ?>" name="ruangan" id="">
                             <option value="0">Pilih</option>
-                            <option value="1">Pengelola Studio</option>
-                            <option value="2">Admin</option>
+                            <?php foreach ($ruangan as $r) : ?>
+                                <option value="<?= $r->id_ruangan?>"><?= $r->nama_ruangan?> </option>
+                            <?php endforeach; ?>
                         </select>
                         <?= form_error('ruangan', '<small class="text-danger">', '</small> '); ?>
                     </div>
