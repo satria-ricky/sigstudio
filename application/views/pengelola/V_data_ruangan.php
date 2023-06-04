@@ -1,4 +1,6 @@
 <!-- Begin Page Content -->
+<link rel="stylesheet" href="<?php echo base_url('assets/') ?>sweetalert/sweetalert2.min.css">
+<script src="<?php echo base_url('assets/') ?>sweetalert/sweetalert2.min.js"></script>
 <div class="container-fluid">
 
     <!-- Page Heading -->
@@ -30,17 +32,25 @@
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Studio no satu</td>
-                            <td class="text-center">
-                                <a href="" class="btn btn-primary "><i class="fas fa-link fa-sm text-white-50"></i> Detail</a>
+                    <?php $no = 1; ?>
+                        <?php foreach ($ruangan as $r) : ?>
+                            <tr>
+                                <td><?= $no++; ?></td>
+                                <td><?= $r->nama_ruangan; ?></td>
+                                <td class="text-center">
+                               
 
-                                <a href="" class="btn btn-danger  mx-2"> <i class="fas fa-trash fa-sm text-white-50"></i> Hapus</a>
+                                    <a class="btn btn-danger" href="<?= site_url('pengelola/C_ruangan/Hapus/' . $r->id_ruangan); ?>" onclick="return confirm('Are you sure?')" ><i class="fas fa-trash fa-sm text-white-50"></i>
+                                        Hapus
+                                    </a>
 
-                                <a href="" class="btn btn-success"> <i class="fas fa-edit fa-sm text-white-50"></i> Update</a>
-                            </td>
-                        </tr>
+
+                                    <a href="#modalUpdateRuagan" class="btn btn-success" onclick="modalUpdateRuangan(<?php echo $r->id_ruangan ?>)" data-toggle="modal"> <i class="fas fa-edit fa-sm text-white-50"></i> Update</a>
+                                </td>
+                               
+                            </tr>
+                        <?php endforeach; ?>
+
 
 
                     </tbody>
@@ -72,7 +82,7 @@
             </div>
             <div class="modal-body">
 
-                <form action="<?php echo base_url('admin/C_data_user/Tambah_user'); ?>" method="POST">
+                <form action="<?php echo base_url('admin/C_ruangan/Tambah_ruangan'); ?>" method="POST">
                     <div class="mb-3">
                         <label for="basic-url">Nama Pelanggan</label>
                         <div class="input-group mb-3">
@@ -135,14 +145,14 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Jadwal Booking</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Ruangan</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
 
-                <form action="<?php echo base_url('pengelola/C_jadwal_boking/Tambah_ruangan'); ?>" method="POST">
+                <form action="<?php echo base_url('pengelola/C_ruangan/Tambah_ruangan'); ?>" method="POST">
                     <div class="mb-3">
                         <label for="basic-url">Nama Ruangan</label>
                         <div class="input-group mb-3">
@@ -162,6 +172,38 @@
     </div>
 </div>
 
+<div class="modal fade" id="modalUpdateRuagan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update Ruangan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form action="<?php echo base_url('pengelola/C_ruangan/Update_ruangan'); ?>" method="POST" onsubmit="return confirm('Yakin di update?');">
+                <input type="hidden" name="idR" id="idR">
+                    <div class="mb-3">
+                        <label for="basic-url">Nama Ruangan</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control <?= (form_error('namaR')) ? 'is-invalid' : ''; ?>" placeholder="Masukkan Nama Ruangan" name="namaR" id="namaR">
+                        </div>
+                        <?= form_error('namaR', '<small class="text-danger">', '</small> '); ?>
+                    </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                <button type="submit" class="btn btn-primary">Update Data</button>
+            </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
 
 <?php if (validation_errors()) : ?>
     <script type="text/javascript">
@@ -172,13 +214,3 @@
         })
     </script>
 <?php endif; ?>
-
-<?php if ($this->session->flashdata('berhasil_tambah_user')) : ?>
-    <script type="text/javascript">
-        Swal.fire({
-            type: 'success',
-            title: 'Berhasil',
-            text: 'Berhasil Tambah User Baru'
-        })
-    </script>
-<?php endif;  ?>

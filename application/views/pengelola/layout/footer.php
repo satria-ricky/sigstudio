@@ -74,36 +74,52 @@
                 $('#password').val(data.password);
 
                 $('#id_st').val(data.id_studio);
-                 $('#foto_lama_st').val(data.foto_studio);
-                 $('#nama_st').val(data.nama_studio);
-                 $('#alamat_st').val(data.alamat_studio);
-                 $('#latitude_st').val(data.latitude);
-                 $('#longitude_st').val(data.longitude);
-                 $('#harga_st').val(data.harga_sewa);
-                 $('#thn_st').val(data.tahun_didirikan);
+                $('#foto_lama_st').val(data.foto_studio);
+                $('#nama_st').val(data.nama_studio);
+                $('#alamat_st').val(data.alamat_studio);
+                $('#latitude_st').val(data.latitude);
+                $('#longitude_st').val(data.longitude);
+                $('#harga_st').val(data.harga_sewa);
+                $('#thn_st').val(data.tahun_didirikan);
 
             }
         });
     }
-function modalUpdateStudio(id) {
-         $.ajax({
-             url: '<?php echo base_url("Studio/getUserStudioById/"); ?>' + id,
-             type: 'GET',
-             dataType: 'json',
-             success: function(data) {
-                 // Do something with the data here
-                 console.log(data);
-                 $('#id_st').val(data.id_studio);
-                 $('#foto_lama_st').val(data.foto_studio);
-                 $('#nama_st').val(data.nama_studio);
-                 $('#alamat_st').val(data.alamat_studio);
-                 $('#latitude_st').val(data.latitude);
-                 $('#longitude_st').val(data.longitude);
-                 $('#harga_st').val(data.harga_sewa);
-                 $('#thn_st').val(data.tahun_didirikan);
-             }
-         });
-     }
+
+    function modalUpdateRuangan(id) {
+        $.ajax({
+            url: '<?php echo base_url("User/getRuanganByid/"); ?>' + id,
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                // Do something with the data here
+                console.log(data);
+                $('#idR').val(data.id_ruangan);
+                $('#namaR').val(data.nama_ruangan);
+
+            }
+        });
+    }
+
+    function modalUpdateStudio(id) {
+        $.ajax({
+            url: '<?php echo base_url("Studio/getUserStudioById/"); ?>' + id,
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                // Do something with the data here
+                console.log(data);
+                $('#id_st').val(data.id_studio);
+                $('#foto_lama_st').val(data.foto_studio);
+                $('#nama_st').val(data.nama_studio);
+                $('#alamat_st').val(data.alamat_studio);
+                $('#latitude_st').val(data.latitude);
+                $('#longitude_st').val(data.longitude);
+                $('#harga_st').val(data.harga_sewa);
+                $('#thn_st').val(data.tahun_didirikan);
+            }
+        });
+    }
 
 
     function showConfirmUpdate() {
@@ -116,23 +132,32 @@ function modalUpdateStudio(id) {
 
     function setLocationUpdate() {
 
-navigator.geolocation.getCurrentPosition(function(location) {
-    var latlng = new L.LatLng(location.coords.latitude, location.coords.longitude);
+        navigator.geolocation.getCurrentPosition(function(location) {
+            var latlng = new L.LatLng(location.coords.latitude, location.coords.longitude);
 
-    //map view 
-    console.log(location.coords.latitude, location.coords.longitude);
+            //map view 
+            console.log(location.coords.latitude, location.coords.longitude);
 
-    document.getElementById("latitude_st").value = location.coords.latitude;
-    document.getElementById("longitude_st").value = location.coords.longitude;
+            document.getElementById("latitude_st").value = location.coords.latitude;
+            document.getElementById("longitude_st").value = location.coords.longitude;
 
 
-});
+        });
 
-}
-
+    }
 </script>
 
 
+
+<?php if ($this->session->flashdata('berhasil_tambah')) : ?>
+    <script type="text/javascript">
+        Swal.fire({
+            type: 'success',
+            title: 'Berhasil',
+            text: 'Data Baru Berhasil ditambahkan'
+        })
+    </script>
+<?php endif;  ?>
 
 <?php if ($this->session->flashdata('berhasil_ubah')) : ?>
     <script type="text/javascript">
@@ -144,7 +169,15 @@ navigator.geolocation.getCurrentPosition(function(location) {
     </script>
 <?php endif;  ?>
 
-
+<?php if ($this->session->flashdata('hapusP')) : ?>
+    <script type="text/javascript">
+        Swal.fire({
+            type: 'success',
+            title: 'Berhasil',
+            text: 'Data Berhasil Dihapus !'
+        })
+    </script>
+<?php endif;  ?>
 
 
 </body>

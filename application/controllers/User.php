@@ -26,4 +26,11 @@ class User extends CI_Controller
 		echo json_encode($data);
 	}
 
+
+	public function getRuanganByid($v_id)
+	{
+		$data = $this->Mread->getRuanganByid($v_id);
+		echo json_encode($data);
+	}
+
 }

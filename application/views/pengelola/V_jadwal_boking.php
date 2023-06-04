@@ -1,4 +1,6 @@
 <!-- Begin Page Content -->
+<link rel="stylesheet" href="<?php echo base_url('assets/') ?>sweetalert/sweetalert2.min.css">
+<script src="<?php echo base_url('assets/') ?>sweetalert/sweetalert2.min.js"></script>
 <div class="container-fluid">
 
     <!-- Page Heading -->

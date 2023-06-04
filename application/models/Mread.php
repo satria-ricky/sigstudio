@@ -63,6 +63,18 @@ class Mread extends CI_Model {
 	}
 
 
+	public function getAllRuanganStudioById($id)
+	{
+		$sql = "SELECT * from tb_ruangan WHERE ruangan_idstudio =?";
+		return $query=$this->db->query($sql,$id)->result(); 
+	}
+
+	public function getRuanganByid($id)
+	{
+		$sql = "SELECT * from tb_ruangan WHERE id_ruangan =?";
+		return $query=$this->db->query($sql,$id)->row_array(); 
+	}
+
 	// BOKING
 
 	public function getAllBokingStudioById($id)
